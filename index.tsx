@@ -58,7 +58,7 @@ function KeymapElement(props: IPluginOptionComponentProps) {
     if (keybind.alt) keybindString.push("alt");
     if (keybind.ctrl) keybindString.push("mod");
     if (keybind.shift) keybindString.push("shift");
-    if (keybind.meta) keybindString.push("meta");
+    if (keybind.meta) keybindString.push("mod");
     if (keybind.key) keybindString.push(keybind.key.toLowerCase());
     // dont let them save if they're recording
     return <>
