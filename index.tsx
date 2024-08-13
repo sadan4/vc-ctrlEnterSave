@@ -39,7 +39,7 @@ function KeybindRecorder({ onBind }: {
                 alt: ev.altKey,
                 ctrl: ev.ctrlKey,
                 shift: ev.shiftKey,
-                meta: ev.which === 224,
+                meta: ev.metaKey,
                 key: ev.key
             });
         }
@@ -58,7 +58,7 @@ function KeymapElement(props: IPluginOptionComponentProps) {
     if (keybind.alt) keybindString.push("alt");
     if (keybind.ctrl) keybindString.push("mod");
     if (keybind.shift) keybindString.push("shift");
-    if (keybind.meta) keybindString.push("mod+cmd");
+    if (keybind.meta) keybindString.push("cmd");
     if (keybind.key) keybindString.push(keybind.key.toLowerCase());
     // dont let them save if they're recording
     return <>
