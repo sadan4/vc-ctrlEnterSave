@@ -96,7 +96,8 @@ function isMatch(ev: KeyboardEvent) {
     return ev.altKey === s.alt
         && ev.key === s.key
         && ev.ctrlKey === s.ctrl
-        && ev.shiftKey === s.shift;
+        && ev.shiftKey === s.shift
+        && ev.metaKey === s.meta;
 }
 const settings = definePluginSettings({
     keymap: {
