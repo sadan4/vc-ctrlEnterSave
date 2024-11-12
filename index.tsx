@@ -5,6 +5,7 @@
  */
 
 import { definePluginSettings } from "@api/Settings";
+import { Devs } from "@utils/constants";
 import definePlugin, { IPluginOptionComponentProps, OptionType } from "@utils/types";
 import { findComponentByCodeLazy } from "@webpack";
 import { Button, Toasts, useEffect, useState } from "@webpack/common";
@@ -111,18 +112,18 @@ export default definePlugin({
     name: "CtrlEnterSave",
     description: "Adds a keybind to save settings. YOU HAVE TO SET THE KEYBIND IN SETTINGS.",
     authors: [
-        {
-            name: "sadan",
-            id: 521819891141967883n
-        }
+        Devs.sadan
     ],
     patches: [
         {
-            find: ".SETTINGS_NOTICE_MESSAGE",
+            // SETTINGS_NOTICE_MESSAGE
+            find: ".GP7JLC",
             replacement: {
                 match: /onSave:(\i).*?children:\[/,
                 replace: "$&$self.KeyListener($1),"
-            }
+            },
+            // for some ungodly reason there are more than one of these
+            all: true
         }
     ],
 
