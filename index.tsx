@@ -5,10 +5,11 @@
  */
 
 import { definePluginSettings } from "@api/Settings";
+import { Button } from "@components/Button";
 import { Devs } from "@utils/constants";
-import definePlugin, { IPluginOptionComponentProps, OptionType } from "@utils/types";
+import definePlugin, { OptionType, PluginSettingComponentProps } from "@utils/types";
 import { findComponentByCodeLazy } from "@webpack";
-import { Button, Toasts, useEffect, useState } from "@webpack/common";
+import { showToast, useEffect, useState } from "@webpack/common";
 // two lines because formatting removes the two spaces at the end of the line
 /**
  * shortcut: keys & mods in a string, joined by "+"
@@ -51,7 +52,7 @@ function KeybindRecorder({ onBind }: {
     }, [onBind]);
     return <></>;
 }
-function KeymapElement(props: IPluginOptionComponentProps) {
+function KeymapElement(props: PluginSettingComponentProps) {
     const [keybind, setKeybind] = useState<KeyBind>(settings.store.keymap ?? {});
     const [recording, setRecording] = useState(false);
     // there has to be a better way to do this
@@ -68,11 +69,13 @@ function KeymapElement(props: IPluginOptionComponentProps) {
             color: "var(--header-primary)"
         }}>Record Your Keymap</div>
         <Button onClick={() => {
-            props.setError(!recording);
+            // not sure what this was supposed to do
+            // props.setError(!recording);
             setRecording(!recording);
         }}>{recording ? "Stop Recording" : "Start Recording"}</Button>
         {recording && <KeybindRecorder onBind={kb => {
-            props.setError(false);
+            // not sure what this was supposed to do
+            // props.setError(false);
             setRecording(!recording);
             setKeybind(kb);
             props.setValue(kb);
@@ -84,14 +87,11 @@ function KeymapElement(props: IPluginOptionComponentProps) {
 function isMatch(ev: KeyboardEvent) {
     const s: KeyBind = settings.store.keymap;
     if (!s || Object.entries(s).length === 0) {
-        Toasts.show({
-            id: Toasts.genId(),
-            message: "(CtrlEnterSave) Set your keybind in settings",
-            type: Toasts.Type.FAILURE,
-            options: {
-                position: Toasts.Position.TOP,
-                duration: 2000
-            }
+        showToast({
+            text: "(CtrlEnterSave) Set your keybind in settings",
+            variant: "critical",
+            position: "top",
+            duration: 2000
         });
     }
     return ev.altKey === s.alt
